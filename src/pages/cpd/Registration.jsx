@@ -19,6 +19,7 @@ import { LoadingButton } from "@mui/lab";
 import Toast from "../../components/Toast";
 import Confirmation from "../../components/Confirmation";
 import { salesTeams } from "../data/teams";
+import { useParams } from "react-router-dom";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -34,6 +35,7 @@ const VisuallyHiddenInput = styled("input")({
 
 export default function Registration() {
   const theme = useTheme();
+  const { prog_id } = useParams();
   const desktop = useMediaQuery(theme.breakpoints.up("lg"));
   const [teams, setTeams] = useState(salesTeams);
   const [CPDPrograms, setCPDPrograms] = useState([]);
@@ -181,7 +183,7 @@ export default function Registration() {
   };
 
   useEffect(() => {
-    const cutoffDate = "2024-06-20";
+    const cutoffDate = "2025-03-14";
     const cutoffTime = "12:00:00";
     const cutoffDateTime = new Date(`${cutoffDate}T${cutoffTime}+08:00`);
     const now = new Date();
@@ -226,6 +228,7 @@ export default function Registration() {
     };
 
     const fetchCPDPrograms = async () => {
+      const programId = parseInt(prog_id) - 1;
       const response = await AxiosInstance.get("cpd-programs");
       const { data } = response.data;
       const programs = data.cpd_programs.map((program) => {
@@ -236,8 +239,8 @@ export default function Registration() {
       });
 
       setCPDPrograms(programs);
-      setProgram(programs[0]);
-      setEntryByKey("programId", parseInt(programs[0].id));
+      setProgram(programs[programId]);
+      setEntryByKey("programId", parseInt(programs[programId].id));
     };
 
     // fetchTeams();

@@ -159,7 +159,7 @@ export default function Admin() {
   const fetchCPDEntries = async () => {
     try {
       setOnFetchProgress(true);
-      const response = await AxiosInstance.get("cpd-entries");
+      const response = await AxiosInstance.get(`cpd-entries?id=${prog_id}`);
       const { data } = response.data;
       const entriesData = data.cpd_entries;
 
@@ -353,6 +353,7 @@ export default function Admin() {
                   showAlert={showAlert}
                   alert={alert}
                   handleCloseAlert={handleCloseAlert}
+                  programId={prog_id}
                 />
               )}
             </>

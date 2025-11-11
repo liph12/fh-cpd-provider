@@ -34,7 +34,7 @@ export default function Confirmation({ email, admin_type }) {
           filipinohomes.cpdprovider@gmail.com.
         </Typography>
         <Box sx={{ mt: 2 }}>
-          <a href={`/${admin_type}/registration`}>
+          <a href={`/cpd/registration`}>
             <Button variant="contained" color="error" size="small">
               Continue
             </Button>

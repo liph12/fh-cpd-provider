@@ -45,7 +45,10 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-        <Route path="/cpd/registration" element={<CPDRegistration />} />
+        <Route
+          path="/cpd/registration/:prog_id"
+          element={<CPDRegistration />}
+        />
         <Route
           path="/new-entry/registration"
           element={<NewEntryRegistration />}

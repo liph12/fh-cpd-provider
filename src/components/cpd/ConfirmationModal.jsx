@@ -11,7 +11,7 @@ import * as Icons from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AxiosInstance from "../../config/AxiosInstance";
 import Toast from "../Toast";
 
@@ -24,10 +24,21 @@ export default function ConfirmationModal({
   alert,
   showAlert,
   handleCloseAlert,
+  programId,
 }) {
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("lg"));
-  const { email, mobile, name, salesTeam, designation, fileURLs, id } = data;
+  const {
+    email,
+    mobile,
+    firstName,
+    middleName,
+    lastName,
+    salesTeam,
+    designation,
+    fileURLs,
+    id,
+  } = data;
   const files = JSON.parse(fileURLs);
   const [status, setStatus] = useState("approved");
   const [remarks, setRemarks] = useState("");
@@ -61,6 +72,7 @@ export default function ConfirmationModal({
         status: status,
         remarks: remarks,
         entryId: id,
+        programId: programId,
       };
       const jsonParams = JSON.stringify(params);
 
@@ -101,7 +113,7 @@ export default function ConfirmationModal({
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="div">
-            {name}
+            {firstName} {middleName} {lastName}
             <Typography variant="caption" component="h6">
               {designation}
             </Typography>
