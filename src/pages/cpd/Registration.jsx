@@ -182,8 +182,7 @@ export default function Registration() {
     }
   };
 
-  useEffect(() => {
-    const cutoffDate = "2025-03-14";
+  const initializeRegistration = async (cutoffDate, closed) => {
     const cutoffTime = "12:00:00";
     const cutoffDateTime = new Date(`${cutoffDate}T${cutoffTime}+08:00`);
     const now = new Date();
@@ -204,13 +203,11 @@ export default function Registration() {
     const manilaNow = new Date(
       `${year}-${month}-${day}T${hour}:${minute}:${second}+08:00`
     );
+    const isCutOff = manilaNow >= cutoffDateTime || closed;
+    setIsCutOff(isCutOff);
+  };
 
-    if (manilaNow >= cutoffDateTime) {
-      setIsCutOff(true);
-    } else {
-      console.log("Current time is less than 12 PM today in Manila.");
-    }
-
+  useEffect(() => {
     const fetchTeams = async () => {
       const response = await fetch(
         "https://api.leuteriorealty.com/lr/v1/public/api/teams"
@@ -237,10 +234,14 @@ export default function Registration() {
           label: program.title,
         };
       });
-
+      const currentProgram = programs[programId];
       setCPDPrograms(programs);
-      setProgram(programs[programId]);
-      setEntryByKey("programId", parseInt(programs[programId].id));
+      setProgram(currentProgram);
+      setEntryByKey("programId", parseInt(currentProgram.id));
+      initializeRegistration(
+        currentProgram.date_from,
+        currentProgram.status === "closed"
+      );
     };
 
     // fetchTeams();
@@ -310,6 +311,12 @@ export default function Registration() {
                       </Typography>
                     </>
                   )}
+                </Box>
+                <Box sx={{ mt: 2 }}>
+                  <Typography variant="body1" component="div">
+                    <span style={{ color: "gray" }}>Note :</span> Fill-out name
+                    as registered in PRC
+                  </Typography>
                 </Box>
               </Box>
               <Grid container spacing={3}>
@@ -475,7 +482,7 @@ export default function Registration() {
                 variant="body1"
                 sx={{ textAlign: "center" }}
               >
-                CPD Provider | Filipino Homes © 2024
+                CPD Provider | Filipino Homes © {new Date().getFullYear()}
               </Typography>
             </Paper>
           </Box>
