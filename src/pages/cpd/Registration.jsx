@@ -313,7 +313,7 @@ export default function Registration() {
                   )}
                 </Box>
                 <Box sx={{ mt: 2 }}>
-                  <Typography variant="body1" component="div">
+                  <Typography variant="body1" component="div" color="error">
                     <span style={{ color: "gray" }}>Note :</span> Fill-out name
                     as registered in PRC
                   </Typography>
