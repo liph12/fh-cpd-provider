@@ -35,6 +35,7 @@ export const salesTeams = [
   { id: 32, label: "TEAM EQUALITY" },
   { id: 33, label: "TEAM G" },
   { id: 34, label: "TEAM G-FORCE" },
+  { id: 34, label: "TEAM GRATEFUL" },
   { id: 35, label: "TEAM FH NEW FORCE" },
   { id: 36, label: "TEAM ROYALTIES" },
   { id: 37, label: "TEAM TYCOONS" },
